@@ -29,6 +29,62 @@
     --shadow: 0 1px 2px rgba(26,29,35,0.04), 0 4px 16px rgba(26,29,35,0.06);
   }
 
+  [data-theme="dark"] {
+    --bg: #16181d;
+    --surface: #1f2229;
+    --ink: #eceae5;
+    --ink-soft: #9da3ad;
+    --muted: #5c6370;
+    --accent: #e05c3a;
+    --accent-soft: #a8432a;
+    --line: #2c3039;
+    --highlight: #2a2510;
+    --done: #1b2d1a;
+    --shadow: 0 1px 2px rgba(0,0,0,0.2), 0 4px 16px rgba(0,0,0,0.3);
+  }
+
+  [data-theme="dark"] .progress-bar {
+    background: rgba(22, 24, 29, 0.92) !important;
+  }
+
+  /* THEME TOGGLE */
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .theme-toggle {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: background 0.2s ease, border-color 0.2s ease;
+    padding: 0;
+    font-size: 1rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .theme-toggle:active {
+    transform: scale(0.92);
+  }
+
+  .theme-toggle .icon-sun,
+  .theme-toggle .icon-moon {
+    display: none;
+  }
+
+  [data-theme="light"] .theme-toggle .icon-sun { display: block; }
+  [data-theme="dark"]  .theme-toggle .icon-moon { display: block; }
+
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
   html { scroll-behavior: smooth; }
@@ -61,7 +117,7 @@
     text-transform: uppercase;
     color: var(--accent);
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 0;
   }
 
   h1 {
@@ -549,7 +605,13 @@
   </div>
 
   <header>
-    <div class="eyebrow">Prescripción Kinesiológica</div>
+    <div class="header-top">
+      <div class="eyebrow">Prescripción Kinesiológica</div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+    </div>
     <h1>Espalda y <em>zona media</em></h1>
     <p class="subtitle">Plan de fortalecimiento y estabilización.</p>
     <div class="meta">
@@ -785,6 +847,73 @@
 </div>
 
 <script>
+  // ── AUDIO ──────────────────────────────────────────────────────────────
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  let audioCtx = null;
+
+  function getAudioCtx() {
+    if (!audioCtx) audioCtx = new AudioCtx();
+    return audioCtx;
+  }
+
+  function playClick() {
+    try {
+      const ctx = getAudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(660, ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.10, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.12);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.13);
+    } catch(e) {}
+  }
+
+  function playCelebration() {
+    try {
+      const ctx = getAudioCtx();
+      const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'triangle';
+        const t = ctx.currentTime + i * 0.12;
+        osc.frequency.setValueAtTime(freq, t);
+        gain.gain.setValueAtTime(0.18, t);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.35);
+        osc.start(t);
+        osc.stop(t + 0.36);
+      });
+    } catch(e) {}
+  }
+
+  // ── DARK MODE ──────────────────────────────────────────────────────────
+  const THEME_KEY = 'rutina-theme';
+  const html = document.documentElement;
+
+  function applyTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    try { localStorage.setItem(THEME_KEY, theme); } catch(e) {}
+  }
+
+  (function initTheme() {
+    let saved = 'light';
+    try { saved = localStorage.getItem(THEME_KEY) || 'light'; } catch(e) {}
+    applyTheme(saved);
+  })();
+
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  });
+
+  // ── RUTINA ─────────────────────────────────────────────────────────────
   const exercises = document.querySelectorAll('.exercise');
   const progressFill = document.getElementById('progressFill');
   const progressText = document.getElementById('progressText');
@@ -804,6 +933,7 @@
 
     if (done === total && !celebrationShown) {
       celebrationShown = true;
+      playCelebration();
       launchConfetti();
       setTimeout(() => celebration.classList.add('show'), 300);
     }
@@ -897,6 +1027,7 @@
     const btn = ex.querySelector('.check-btn');
     if (btn) {
       btn.addEventListener('click', () => {
+        playClick();
         const isDone = !ex.classList.contains('done');
         markExerciseDone(ex, isDone);
         updateProgress();
@@ -911,6 +1042,7 @@
       const totalSeries = seriesBtns.length;
       seriesBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+          playClick();
           btn.classList.toggle('completed');
           const completed = tracker.querySelectorAll('.serie-btn.completed').length;
           if (completed === totalSeries) {
