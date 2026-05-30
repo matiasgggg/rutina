@@ -1077,6 +1077,24 @@
 
   loadState();
   updateProgress();
+
+  // ── WAKE LOCK (mantiene la pantalla encendida) ──────────────────────────
+  let wakeLock = null;
+
+  async function requestWakeLock() {
+    if (!('wakeLock' in navigator)) return;
+    try {
+      wakeLock = await navigator.wakeLock.request('screen');
+    } catch(e) {}
+  }
+
+  // Si la pestaña vuelve a primer plano (ej: el usuario sale y vuelve),
+  // la Wake Lock se libera automáticamente y hay que pedirla de nuevo.
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') requestWakeLock();
+  });
+
+  requestWakeLock();
 </script>
 </body>
 </html>
