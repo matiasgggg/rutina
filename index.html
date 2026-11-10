@@ -3,417 +3,314 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#f4f1ec" id="themeColorMeta">
-<title>Rutina · Espalda y Zona Media</title>
+<meta name="theme-color" content="#F3EEE6">
+<title>Rutina · Espalda</title>
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Rutina">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f4f1ec;
-    --surface: #ffffff;
-    --ink: #1a1d23;
-    --ink-soft: #4a4f57;
-    --muted: #8b8f96;
-    --accent: #c54a2c;
-    --accent-soft: #e8a596;
-    --line: #e3ddd3;
-    --highlight: #fef3c7;
-    --done: #d4e4d0;
-    --shadow: 0 1px 2px rgba(26,29,35,0.04), 0 4px 16px rgba(26,29,35,0.06);
+    --bg: #F3EEE6;
+    --card: #FFFFFF;
+    --ink: #2A2520;
+    --ink-soft: #594F45;
+    --muted: #8A7F72;
+    --line: #E8DFD3;
+    --accent: #C54A2C;
+    --accent-soft: #FDE8DF;
+    --done: #3E8F5E;
+    --done-soft: #E3F2E5;
+    --next: #3B7DD8;
+
+    --font-body: "Atkinson Hyperlegible", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-title: "Fredoka", "Atkinson Hyperlegible", -apple-system, sans-serif;
+
+    box-sizing: border-box;
   }
+  *, *::before, *::after { box-sizing: inherit; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-  [data-theme="dark"] {
-    --bg: #16181d;
-    --surface: #1f2229;
-    --ink: #eceae5;
-    --ink-soft: #9da3ad;
-    --muted: #5c6370;
-    --accent: #e05c3a;
-    --accent-soft: #a8432a;
-    --line: #2c3039;
-    --highlight: #2a2510;
-    --done: #1b2d1a;
-    --shadow: 0 1px 2px rgba(0,0,0,0.2), 0 4px 16px rgba(0,0,0,0.3);
-  }
-
-  [data-theme="dark"] .progress-bar {
-    background: rgba(22, 24, 29, 0.92) !important;
-  }
-
-  /* THEME TOGGLE */
-  .header-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-  }
-
-  .theme-toggle {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 100px;
-    width: 34px;
-    height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: var(--shadow);
-    transition: background 0.2s ease, border-color 0.2s ease;
-    padding: 0;
-    font-size: 1rem;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-
-  .theme-toggle:active {
-    transform: scale(0.92);
-  }
-
-  .theme-toggle .icon-sun,
-  .theme-toggle .icon-moon {
-    display: none;
-  }
-
-  [data-theme="light"] .theme-toggle .icon-sun { display: block; }
-  [data-theme="dark"]  .theme-toggle .icon-moon { display: block; }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-  html { scroll-behavior: smooth; }
+  html { scroll-padding-top: env(safe-area-inset-top, 20px); scroll-behavior: smooth; }
 
   body {
-    font-family: 'DM Sans', system-ui, sans-serif;
+    font-family: var(--font-body);
     background: var(--bg);
     color: var(--ink);
-    line-height: 1.55;
-    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    line-height: 1.5;
     min-height: 100vh;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) calc(env(safe-area-inset-bottom) + 24px) env(safe-area-inset-left);
   }
 
-  .container {
-    max-width: 720px;
+  .app {
+    max-width: 640px;
     margin: 0 auto;
-    padding: 24px 20px 100px;
+    padding: 20px 18px 40px;
   }
 
   /* HEADER */
-  header {
-    margin-bottom: 32px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .eyebrow {
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 600;
-    margin-bottom: 0;
-  }
-
-  h1 {
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 800;
-    font-size: clamp(1.9rem, 6vw, 2.6rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin-bottom: 14px;
-  }
-
-  h1 em {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--accent);
-  }
-
-  .subtitle {
-    font-size: 0.95rem;
-    color: var(--ink-soft);
-    margin-bottom: 18px;
-  }
-
-  .meta {
+  .app-header {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 16px;
-  }
-
-  .tag {
-    font-size: 0.72rem;
-    padding: 5px 11px;
-    border-radius: 100px;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    color: var(--ink-soft);
-    font-weight: 500;
-  }
-
-  /* PAUTAS */
-  .pautas {
-    background: var(--highlight);
-    border-radius: 14px;
-    padding: 16px 18px;
-    margin-bottom: 36px;
-    border-left: 3px solid var(--accent);
-  }
-
-  .pautas-title {
-    font-weight: 700;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-    color: var(--ink);
-  }
-
-  .pautas p {
-    font-size: 0.88rem;
-    color: var(--ink-soft);
-  }
-
-  /* EJERCICIOS */
-  .exercise {
-    background: var(--surface);
-    border-radius: 16px;
-    padding: 22px 20px;
-    margin-bottom: 18px;
-    box-shadow: var(--shadow);
-    transition: background 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .exercise.done {
-    background: var(--done);
-  }
-
-  .exercise.done .ex-number {
-    background: var(--accent);
-    color: white;
-  }
-
-  .ex-header {
-    display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 14px;
-    margin-bottom: 14px;
+    margin-bottom: 28px;
+    padding: 4px 2px;
   }
 
-  .ex-number {
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .brand-icon {
+    width: 48px;
+    height: 48px;
     flex-shrink: 0;
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background: var(--bg);
-    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--accent);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 1.05rem;
-    color: var(--ink);
-    transition: all 0.2s ease;
+    color: #fff;
   }
 
-  .ex-titlewrap { flex: 1; min-width: 0; }
+  .brand-icon svg {
+    width: 28px;
+    height: 28px;
+  }
 
-  .ex-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 1.15rem;
-    line-height: 1.25;
+  .brand h1 {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    font-weight: 700;
     letter-spacing: -0.01em;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  /* CARDS */
+  .meals {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .meal {
+    position: relative;
+    background: var(--card);
+    border: 2px solid transparent;
+    border-radius: 22px;
+    padding: 22px 20px 16px;
+    box-shadow: 0 1px 2px rgba(42, 37, 32, 0.04), 0 8px 24px rgba(42, 37, 32, 0.05);
+    transition: all 0.3s ease;
+    scroll-margin-top: 24px;
+  }
+
+  .meal.is-next {
+    border-color: var(--next);
+  }
+
+  .meal.done {
+    background: var(--done-soft);
+    border-color: transparent;
+  }
+
+  /* Next tag */
+  .next-tag {
+    display: none;
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: var(--next);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 4px 11px;
+    border-radius: 100px;
+    text-transform: uppercase;
+  }
+
+  .meal.is-next .next-tag {
+    display: block;
+  }
+
+  .meal.done .next-tag {
+    display: none;
+  }
+
+  /* Exercise header */
+  .ex-head {
     margin-bottom: 4px;
   }
 
-  .ex-dose {
+  .ex-num {
+    font-family: var(--font-title);
     font-size: 0.78rem;
+    font-weight: 700;
     color: var(--accent);
-    font-weight: 600;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
   }
 
-  .ex-content {
-    padding-left: 50px;
+  .meal.done .ex-num {
+    color: var(--done);
   }
 
-  .ex-content ul {
-    list-style: none;
-    margin-bottom: 14px;
+  .ex-title {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    display: block;
   }
 
-  .ex-content li {
-    font-size: 0.92rem;
+  .ex-dose {
+    font-size: 0.95rem;
     color: var(--ink-soft);
-    padding: 6px 0 6px 18px;
-    position: relative;
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+
+  /* Description */
+  .ex-desc {
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
     line-height: 1.5;
   }
 
-  .ex-content li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 14px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
+  /* Divider */
+  .ex-divider {
+    border-top: 1.5px dashed var(--line);
+    margin: 0 -4px 14px;
+  }
+
+  .meal.done .ex-divider {
+    border-color: rgba(62, 143, 94, 0.25);
+  }
+
+  /* Check button */
+  .check-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 8px 4px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+  }
+
+  .check-btn:active {
+    transform: scale(0.98);
+  }
+
+  .box {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 2px solid var(--line);
+    background: var(--card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: all 0.25s ease;
+  }
+
+  .box svg {
+    width: 22px;
+    height: 22px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .meal.done .box {
+    background: var(--done);
+    border-color: var(--done);
+  }
+
+  .meal.done .box svg {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .meal.done .check-btn {
+    color: var(--done);
+  }
+
+  .check-label::before {
+    content: "Tocar al completar";
+  }
+
+  .meal.done .check-label::before {
+    content: "¡Hecho!";
+  }
+
+  /* FOOTER */
+  .app-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+    padding-top: 8px;
+  }
+
+  .reset-btn {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    min-height: 54px;
+    padding: 0 28px;
+    border-radius: 100px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    transition: all 0.2s ease;
+  }
+
+  .reset-btn:active {
     background: var(--accent-soft);
   }
 
-  .tip {
-    background: var(--bg);
-    border-radius: 10px;
-    padding: 12px 14px;
-    margin-top: 10px;
-    border-left: 2px solid var(--accent);
-  }
-
-  .tip-label {
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-    font-weight: 700;
-    margin-bottom: 3px;
-  }
-
-  .tip-text {
-    font-size: 0.86rem;
-    color: var(--ink);
-    line-height: 1.45;
-  }
-
-  /* CHECKBOX */
-  .check-btn {
-    margin-top: 16px;
-    margin-left: 50px;
-    background: transparent;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 8px 14px;
-    font-family: inherit;
-    font-size: 0.8rem;
-    color: var(--ink-soft);
-    cursor: pointer;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    transition: all 0.2s ease;
-  }
-
-  .check-btn:hover, .check-btn:active {
-    background: var(--bg);
-    border-color: var(--ink-soft);
-  }
-
-  .exercise.done .check-btn {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-  }
-
-  .check-btn::before {
-    content: "○";
-    font-size: 1rem;
-    line-height: 1;
-  }
-
-  .exercise.done .check-btn::before {
-    content: "✓";
-    font-weight: 700;
-  }
-
-  /* SERIES TRACKER */
-  .series-tracker {
-    margin-top: 16px;
-    margin-left: 50px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    align-items: center;
-  }
-
-  .series-label {
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    font-weight: 600;
-    width: 100%;
-    margin-bottom: 2px;
-  }
-
-  .serie-btn {
-    background: transparent;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 9px 14px;
-    font-family: inherit;
-    font-size: 0.82rem;
-    color: var(--ink-soft);
-    cursor: pointer;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.2s ease;
-    min-width: 86px;
-    justify-content: center;
-  }
-
-  .serie-btn::before {
-    content: "○";
-    font-size: 0.95rem;
-    line-height: 1;
-  }
-
-  .serie-btn:active {
-    transform: scale(0.96);
-  }
-
-  .serie-btn.completed {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-  }
-
-  .serie-btn.completed::before {
-    content: "✓";
-    font-weight: 700;
-  }
-
-  .exercise.done .serie-btn {
-    opacity: 0.85;
+  .reset-btn svg {
+    width: 20px;
+    height: 20px;
   }
 
   /* CONFETTI */
   .confetti-container {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     pointer-events: none;
     z-index: 1000;
     overflow: hidden;
     display: none;
   }
-
   .confetti-container.active { display: block; }
-
   .confetti-piece {
     position: absolute;
     top: -20px;
@@ -422,526 +319,254 @@
     opacity: 0;
     animation: confetti-fall linear forwards;
   }
-
   @keyframes confetti-fall {
-    0% {
-      transform: translateY(-20px) rotate(0deg);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(105vh) rotate(720deg);
-      opacity: 1;
-    }
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(105vh) rotate(720deg); opacity: 1; }
   }
 
-  /* CELEBRATION MESSAGE */
+  /* CELEBRATION */
   .celebration {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.7);
-    background: #1a1d23;
-    color: #eceae5;
-    padding: 28px 32px;
-    border-radius: 20px;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 32px 28px 26px;
+    border-radius: 24px;
     text-align: center;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
     z-index: 1001;
     opacity: 0;
     pointer-events: none;
     transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     max-width: 85vw;
+    width: 320px;
   }
-
   .celebration.show {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
     pointer-events: auto;
   }
-
   .celebration-emoji {
     font-size: 3rem;
     margin-bottom: 10px;
     display: block;
   }
-
   .celebration-title {
-    font-family: 'Fraunces', serif;
+    font-family: var(--font-title);
     font-weight: 700;
-    font-size: 1.5rem;
-    line-height: 1.15;
-    margin-bottom: 8px;
+    font-size: 1.6rem;
+    line-height: 1.1;
+    margin-bottom: 10px;
     letter-spacing: -0.01em;
-    color: #eceae5;
   }
-
-  .celebration-title em {
-    font-style: italic;
-    color: var(--accent-soft);
-  }
-
   .celebration-text {
-    font-size: 0.9rem;
-    color: rgba(236, 234, 229, 0.72);
-    margin-bottom: 18px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 20px;
   }
-
   .celebration-close {
     background: var(--accent);
-    color: white;
+    color: #fff;
     border: none;
-    padding: 10px 22px;
+    padding: 12px 26px;
     border-radius: 100px;
-    font-family: inherit;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  /* PROGRESO */
-  .progress-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    padding: 10px 20px;
-    padding-bottom: calc(10px + env(safe-area-inset-bottom));
-    border-top: 1px solid var(--line);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    background: rgba(244, 241, 236, 0.92);
-  }
-
-  .progress-track {
-    height: 6px;
-    background: var(--line);
-    border-radius: 100px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 100px;
-    width: 0%;
-    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .progress-text {
-    font-size: 0.72rem;
-    color: var(--muted);
-    text-align: right;
-    margin-top: 6px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-  }
-
-  /* SECTION DIVIDERS */
-  .section-label {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
+    font-family: var(--font-body);
     font-size: 0.95rem;
-    color: var(--muted);
-    margin: 28px 0 14px;
-    padding-left: 4px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .section-label::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: var(--line);
-  }
-
-  /* RESET BUTTON */
-  .reset-area {
-    text-align: center;
-    margin-top: 40px;
-    padding-top: 24px;
-    border-top: 1px solid var(--line);
-  }
-
-  .reset-btn {
-    background: transparent;
-    border: 1px solid var(--line);
-    border-radius: 100px;
-    padding: 10px 24px;
-    font-family: inherit;
-    font-size: 0.82rem;
-    color: var(--ink-soft);
+    font-weight: 700;
     cursor: pointer;
-    font-weight: 500;
-  }
-
-  .reset-btn:active {
-    background: var(--surface);
-  }
-
-  footer {
-    text-align: center;
-    margin-top: 24px;
-    font-size: 0.75rem;
-    color: var(--muted);
-    font-style: italic;
-    font-family: 'Fraunces', serif;
-  }
-
-  @media (min-width: 600px) {
-    .container { padding: 40px 32px 100px; }
-    .exercise { padding: 26px 26px; }
   }
 </style>
 </head>
 <body>
-<div class="container">
+<div class="app">
 
-  <header>
-    <div class="header-top">
-      <div class="eyebrow">Prescripción Kinesiológica</div>
-      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
-        <span class="icon-sun">☀️</span>
-        <span class="icon-moon">🌙</span>
-      </button>
-    </div>
-    <h1>Espalda y <em>zona media</em></h1>
-    <p class="subtitle">Plan de fortalecimiento y estabilización.</p>
-    <div class="meta">
-      <span class="tag">Control motor</span>
-      <span class="tag">Descompresión</span>
-      <span class="tag">Core</span>
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <rect x="1" y="9.5" width="2.8" height="5" rx="1"/>
+          <rect x="4" y="7.5" width="2.8" height="9" rx="1"/>
+          <rect x="6.8" y="11" width="10.4" height="2" rx="1"/>
+          <rect x="17.2" y="7.5" width="2.8" height="9" rx="1"/>
+          <rect x="20.2" y="9.5" width="2.8" height="5" rx="1"/>
+        </svg>
+      </div>
+      <h1>Rutina de espalda</h1>
     </div>
   </header>
 
-  <div class="pautas">
-    <div class="pautas-title">Pautas de ejecución</div>
-    <p>Movimientos pausados y conscientes. Priorizá alineación y estabilidad antes que velocidad. Suspendé si aparece dolor agudo.</p>
-  </div>
+  <main class="meals">
+      <article class="meal" data-id="1">
+        <div class="next-tag">Siguiente</div>
+        <div class="ex-head">
+          <span class="ex-num">Ejercicio 01</span>
+          <h2 class="ex-title">Movilidad de piernas</h2>
+        </div>
+        <div class="ex-dose">3 series de 20 repeticiones</div>
+        <p class="ex-desc">Elevá y bajá la pierna recta con la rodilla extendida.</p>
+        <div class="ex-divider"></div>
+        <button class="check-btn" type="button">
+          <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 10 18 20 6"/></svg></span>
+          <span class="check-label"></span>
+        </button>
+      </article>
+      <article class="meal" data-id="2">
+        <div class="next-tag">Siguiente</div>
+        <div class="ex-head">
+          <span class="ex-num">Ejercicio 02</span>
+          <h2 class="ex-title">Gato bueno / gato malo</h2>
+        </div>
+        <div class="ex-dose">3 series de 12 repeticiones</div>
+        <p class="ex-desc">Arqueá y redondeá la espalda vértebra por vértebra.</p>
+        <div class="ex-divider"></div>
+        <button class="check-btn" type="button">
+          <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 10 18 20 6"/></svg></span>
+          <span class="check-label"></span>
+        </button>
+      </article>
+      <article class="meal" data-id="3">
+        <div class="next-tag">Siguiente</div>
+        <div class="ex-head">
+          <span class="ex-num">Ejercicio 03</span>
+          <h2 class="ex-title">Bicho muerto</h2>
+        </div>
+        <div class="ex-dose">3 series de 10 por lado</div>
+        <p class="ex-desc">Extendé brazo y pierna opuestos, con mancuernas de 2 kg.</p>
+        <div class="ex-divider"></div>
+        <button class="check-btn" type="button">
+          <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 10 18 20 6"/></svg></span>
+          <span class="check-label"></span>
+        </button>
+      </article>
+      <article class="meal" data-id="4">
+        <div class="next-tag">Siguiente</div>
+        <div class="ex-head">
+          <span class="ex-num">Ejercicio 04</span>
+          <h2 class="ex-title">Puente de glúteo</h2>
+        </div>
+        <div class="ex-dose">3 series de 8 repeticiones</div>
+        <p class="ex-desc">Talones en el banco. Sostené arriba 5 segundos.</p>
+        <div class="ex-divider"></div>
+        <button class="check-btn" type="button">
+          <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 10 18 20 6"/></svg></span>
+          <span class="check-label"></span>
+        </button>
+      </article>
+      <article class="meal" data-id="5">
+        <div class="next-tag">Siguiente</div>
+        <div class="ex-head">
+          <span class="ex-num">Ejercicio 05</span>
+          <h2 class="ex-title">Elongación de columna</h2>
+        </div>
+        <div class="ex-dose">2 series de 20 a 30 segundos por lado</div>
+        <p class="ex-desc">Colgate lateral de un poste y respirá profundo.</p>
+        <div class="ex-divider"></div>
+        <button class="check-btn" type="button">
+          <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 10 18 20 6"/></svg></span>
+          <span class="check-label"></span>
+        </button>
+      </article>
+      <article class="meal" data-id="6">
+        <div class="next-tag">Siguiente</div>
+        <div class="ex-head">
+          <span class="ex-num">Ejercicio 06</span>
+          <h2 class="ex-title">Cruz en el piso</h2>
+        </div>
+        <div class="ex-dose">3 series de 5 segundos por lado</div>
+        <p class="ex-desc">Cruzá una pierna hacia la mano opuesta, hombros apoyados.</p>
+        <div class="ex-divider"></div>
+        <button class="check-btn" type="button">
+          <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 10 18 20 6"/></svg></span>
+          <span class="check-label"></span>
+        </button>
+      </article>
+      <article class="meal" data-id="7">
+        <div class="next-tag">Siguiente</div>
+        <div class="ex-head">
+          <span class="ex-num">Ejercicio 07</span>
+          <h2 class="ex-title">Elongación final</h2>
+        </div>
+        <div class="ex-dose">30 segundos cada posición</div>
+        <p class="ex-desc">Isquiotibiales con banda y después postura fetal.</p>
+        <div class="ex-divider"></div>
+        <button class="check-btn" type="button">
+          <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 10 18 20 6"/></svg></span>
+          <span class="check-label"></span>
+        </button>
+      </article>
+  </main>
 
-  <div class="section-label">Preparación</div>
-
-  <!-- 1 -->
-  <article class="exercise" data-id="1">
-    <div class="ex-header">
-      <div class="ex-number">1</div>
-      <div class="ex-titlewrap">
-        <div class="ex-title">Entrada en calor · Movilidad de cadera</div>
-        <div class="ex-dose">Fase de activación fluida</div>
-      </div>
-    </div>
-    <div class="ex-content">
-      <ul>
-        <li>Decúbito supino (boca arriba), con la banda elástica rodeando la planta del pie.</li>
-        <li>Elevá y bajá la pierna recta de forma controlada, con la rodilla completamente extendida.</li>
-      </ul>
-      <div class="tip">
-        <div class="tip-label">Indicación técnica</div>
-        <div class="tip-text">Mantené la pierna contraria firme y apoyada en el suelo para fijar la pelvis. No flexiones la rodilla activa.</div>
-      </div>
-    </div>
-    <button class="check-btn">Marcar como hecho</button>
-  </article>
-
-  <!-- 2 -->
-  <article class="exercise" data-id="2">
-    <div class="ex-header">
-      <div class="ex-number">2</div>
-      <div class="ex-titlewrap">
-        <div class="ex-title">Gato bueno / Gato malo</div>
-        <div class="ex-dose">3 series × 10 repeticiones</div>
-      </div>
-    </div>
-    <div class="ex-content">
-      <ul>
-        <li><strong>Gato bueno:</strong> inhalá profundo mientras arqueás suavemente la columna hacia abajo y elevás la mirada.</li>
-        <li><strong>Gato malo:</strong> exhalá redondeando la espalda hacia el techo, empujando el suelo y llevando la barbilla al pecho.</li>
-      </ul>
-      <div class="tip">
-        <div class="tip-label">Indicación técnica</div>
-        <div class="tip-text">Movimiento segmentado, vértebra por vértebra, sin forzar rangos dolorosos.</div>
-      </div>
-    </div>
-    <div class="series-tracker" data-series="3">
-      <div class="series-label">Marcá cada serie</div>
-      <button class="serie-btn" data-serie="1">Serie 1</button>
-      <button class="serie-btn" data-serie="2">Serie 2</button>
-      <button class="serie-btn" data-serie="3">Serie 3</button>
-    </div>
-  </article>
-
-  <div class="section-label">Fortalecimiento</div>
-
-  <!-- 3 -->
-  <article class="exercise" data-id="3">
-    <div class="ex-header">
-      <div class="ex-number">3</div>
-      <div class="ex-titlewrap">
-        <div class="ex-title">Bicho muerto con carga (Dead Bug)</div>
-        <div class="ex-dose">3 series × 20 reps totales (10 por lado)</div>
-      </div>
-    </div>
-    <div class="ex-content">
-      <ul>
-        <li>Boca arriba, rodillas a 90° y brazos extendidos al techo sosteniendo mancuernas de 2 kg.</li>
-        <li>Extendé una pierna hacia adelante (casi rozando el piso) mientras descendés el brazo opuesto hacia atrás.</li>
-        <li>Volvé al centro y alterná.</li>
-      </ul>
-      <div class="tip">
-        <div class="tip-label">Indicación técnica</div>
-        <div class="tip-text">La columna debe estar totalmente pegada al piso. Evitá a toda costa que se arquee la zona lumbar.</div>
-      </div>
-    </div>
-    <div class="series-tracker" data-series="3">
-      <div class="series-label">Marcá cada serie</div>
-      <button class="serie-btn" data-serie="1">Serie 1</button>
-      <button class="serie-btn" data-serie="2">Serie 2</button>
-      <button class="serie-btn" data-serie="3">Serie 3</button>
-    </div>
-  </article>
-
-  <!-- 4 -->
-  <article class="exercise" data-id="4">
-    <div class="ex-header">
-      <div class="ex-number">4</div>
-      <div class="ex-titlewrap">
-        <div class="ex-title">Puente de glúteo elevado en banco</div>
-        <div class="ex-dose">3 series × 8 repeticiones (isométrico + control)</div>
-      </div>
-    </div>
-    <div class="ex-content">
-      <ul>
-        <li>Boca arriba con los talones firmemente apoyados sobre un banco o elevación.</li>
-        <li>Elevá la cadera contrayendo glúteos hasta alinear el cuerpo. Sostené arriba 5 segundos, bajá lento y repetí.</li>
-      </ul>
-      <div class="tip">
-        <div class="tip-label">Indicación técnica</div>
-        <div class="tip-text">Pies firmes y extendidos. La fuerza nace de los glúteos y talones, jamás de la columna lumbar.</div>
-      </div>
-    </div>
-    <div class="series-tracker" data-series="3">
-      <div class="series-label">Marcá cada serie</div>
-      <button class="serie-btn" data-serie="1">Serie 1</button>
-      <button class="serie-btn" data-serie="2">Serie 2</button>
-      <button class="serie-btn" data-serie="3">Serie 3</button>
-    </div>
-  </article>
-
-  <!-- 5 -->
-  <article class="exercise" data-id="5">
-    <div class="ex-header">
-      <div class="ex-number">5</div>
-      <div class="ex-titlewrap">
-        <div class="ex-title">Plancha lateral estática</div>
-        <div class="ex-dose">3 series × 5 reps por lado (isométrico)</div>
-      </div>
-    </div>
-    <div class="ex-content">
-      <ul>
-        <li>Apoyo sobre un costado: antebrazo y lateral del pie. Elevá la pelvis sosteniendo una línea recta.</li>
-        <li>Mantené la contracción 5 segundos (o lo máximo que tolere la técnica perfecta).</li>
-      </ul>
-      <div class="tip">
-        <div class="tip-label">Indicación técnica</div>
-        <div class="tip-text">Codo exactamente bajo el hombro. Pecho hacia el frente y escápulas juntas (atrás).</div>
-      </div>
-    </div>
-    <div class="series-tracker" data-series="3">
-      <div class="series-label">Marcá cada serie</div>
-      <button class="serie-btn" data-serie="1">Serie 1</button>
-      <button class="serie-btn" data-serie="2">Serie 2</button>
-      <button class="serie-btn" data-serie="3">Serie 3</button>
-    </div>
-  </article>
-
-  <div class="section-label">Descompresión y cierre</div>
-
-  <!-- 6 -->
-  <article class="exercise" data-id="6">
-    <div class="ex-header">
-      <div class="ex-number">6</div>
-      <div class="ex-titlewrap">
-        <div class="ex-title">Estiramiento y descompresión de columna</div>
-        <div class="ex-dose">2-3 series · 20-30 segundos por lado</div>
-      </div>
-    </div>
-    <div class="ex-content">
-      <ul>
-        <li>Sujetate firme con ambas manos a una columna, poste o marco de puerta a la altura del pecho.</li>
-        <li>Pasá un brazo por detrás de la cabeza y dejá caer lateralmente el peso del cuerpo, sintiendo la apertura costal.</li>
-      </ul>
-      <div class="tip">
-        <div class="tip-label">Indicación técnica</div>
-        <div class="tip-text">Dejá colgar el peso de forma controlada. Respiración lenta y profunda para relajar el dorsal.</div>
-      </div>
-    </div>
-    <button class="check-btn">Marcar como hecho</button>
-  </article>
-
-  <!-- 7 -->
-  <article class="exercise" data-id="7">
-    <div class="ex-header">
-      <div class="ex-number">7</div>
-      <div class="ex-titlewrap">
-        <div class="ex-title">Cruz en el piso · Torsión y elongación</div>
-        <div class="ex-dose">3 series × 5 reps por lado</div>
-      </div>
-    </div>
-    <div class="ex-content">
-      <ul>
-        <li>Acostate recto boca arriba, brazos abiertos en cruz, firmes contra el suelo.</li>
-        <li>Elevá una pierna y cruzá el cuerpo intentando acercarla a la mano opuesta (lo más cerca de la cabeza posible).</li>
-      </ul>
-      <div class="tip">
-        <div class="tip-label">Indicación técnica</div>
-        <div class="tip-text">No flexiones la rodilla activa. Los hombros permanecen completamente apoyados en el piso en todo momento.</div>
-      </div>
-    </div>
-    <button class="check-btn">Marcar como hecho</button>
-  </article>
-
-  <!-- 8 -->
-  <article class="exercise" data-id="8">
-    <div class="ex-header">
-      <div class="ex-number">8</div>
-      <div class="ex-titlewrap">
-        <div class="ex-title">Bloque de elongación final con banda</div>
-        <div class="ex-dose">Descarga / cierre de rutina</div>
-      </div>
-    </div>
-    <div class="ex-content">
-      <ul>
-        <li><strong>Isquiotibiales:</strong> pasá la banda por la punta del pie y tirá suavemente hacia el torso con la rodilla estirada.</li>
-        <li><strong>Postura fetal:</strong> retirá la banda, flexioná ambas rodillas hacia el pecho y abrazalas firmemente para liberar la tensión lumbar.</li>
-      </ul>
-      <div class="tip">
-        <div class="tip-label">Indicación técnica</div>
-        <div class="tip-text">30 segundos por posición, de manera estática. Relajá los músculos con la exhalación.</div>
-      </div>
-    </div>
-    <button class="check-btn">Marcar como hecho</button>
-  </article>
-
-  <div class="reset-area">
-    <button class="reset-btn" id="resetBtn">Reiniciar progreso</button>
-  </div>
-
-  <footer>Cuidá la técnica antes que la intensidad.</footer>
+  <footer class="app-footer">
+    <button class="reset-btn" id="resetBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><polyline points="3 4 3 10 9 10"/></svg>
+      Reiniciar rutina
+    </button>
+  </footer>
 
 </div>
 
 <div class="confetti-container" id="confettiContainer"></div>
 
-<div class="progress-bar">
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-  <div class="progress-text"><span id="progressText">0 de 8 completados</span></div>
-</div>
-
 <div class="celebration" id="celebration">
   <span class="celebration-emoji">🎉</span>
-  <div class="celebration-title">¡Rutina <em>completada</em>!</div>
+  <div class="celebration-title">¡Rutina completada!</div>
   <div class="celebration-text">Buen trabajo. Cuidaste tu espalda hoy.</div>
   <button class="celebration-close" id="celebrationClose">Cerrar</button>
 </div>
 
 <script>
-  // ── AUDIO ──────────────────────────────────────────────────────────────
-  const AudioCtx = window.AudioContext || window.webkitAudioContext;
-  let audioCtx = null;
-
-  function getAudioCtx() {
-    if (!audioCtx) audioCtx = new AudioCtx();
-    return audioCtx;
-  }
-
-  function playClick() {
-    try {
-      const ctx = getAudioCtx();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(880, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(660, ctx.currentTime + 0.08);
-      gain.gain.setValueAtTime(0.10, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.12);
-      osc.start(ctx.currentTime);
-      osc.stop(ctx.currentTime + 0.13);
-    } catch(e) {}
-  }
-
-  function playCelebration() {
-    try {
-      const ctx = getAudioCtx();
-      const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
-      notes.forEach((freq, i) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.type = 'triangle';
-        const t = ctx.currentTime + i * 0.12;
-        osc.frequency.setValueAtTime(freq, t);
-        gain.gain.setValueAtTime(0.18, t);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.35);
-        osc.start(t);
-        osc.stop(t + 0.36);
-      });
-    } catch(e) {}
-  }
-
-  // ── DARK MODE ──────────────────────────────────────────────────────────
-  const THEME_KEY = 'rutina-theme';
-  const html = document.documentElement;
-
-  const themeColorMeta = document.getElementById('themeColorMeta');
-
-  function applyTheme(theme) {
-    html.setAttribute('data-theme', theme);
-    themeColorMeta.setAttribute('content', theme === 'dark' ? '#16181d' : '#f4f1ec');
-    try { localStorage.setItem(THEME_KEY, theme); } catch(e) {}
-  }
-
-  (function initTheme() {
-    let saved = 'light';
-    try { saved = localStorage.getItem(THEME_KEY) || 'light'; } catch(e) {}
-    applyTheme(saved);
-  })();
-
-  document.getElementById('themeToggle').addEventListener('click', () => {
-    const current = html.getAttribute('data-theme');
-    applyTheme(current === 'dark' ? 'light' : 'dark');
-  });
-
-  // ── RUTINA ─────────────────────────────────────────────────────────────
-  const exercises = document.querySelectorAll('.exercise');
-  const progressFill = document.getElementById('progressFill');
-  const progressText = document.getElementById('progressText');
+  const meals = document.querySelectorAll('.meal');
   const confettiContainer = document.getElementById('confettiContainer');
   const celebration = document.getElementById('celebration');
   const celebrationClose = document.getElementById('celebrationClose');
-  const total = exercises.length;
-  const STORAGE_KEY = 'rutina-espalda-progreso-v2';
-  const CONFETTI_COLORS = ['#c54a2c', '#e8a596', '#fef3c7', '#d4e4d0', '#1a1d23', '#f4a261', '#e76f51'];
+  const total = meals.length;
+  const STORAGE_KEY = 'rutina-espalda-v4';
+  const CONFETTI_COLORS = ['#c54a2c', '#fde8df', '#3e8f5e', '#3b7dd8', '#f4b740', '#2a2520'];
   let celebrationShown = false;
 
-  function updateProgress() {
-    const done = document.querySelectorAll('.exercise.done').length;
-    const pct = (done / total) * 100;
-    progressFill.style.width = pct + '%';
-    progressText.textContent = `${done} de ${total} completados`;
+  function updateUI() {
+    const doneCount = document.querySelectorAll('.meal.done').length;
 
-    if (done === total && !celebrationShown) {
+    // "Siguiente" tag: la primera no completada
+    let foundNext = false;
+    meals.forEach(m => {
+      if (!m.classList.contains('done') && !foundNext) {
+        m.classList.add('is-next');
+        foundNext = true;
+      } else {
+        m.classList.remove('is-next');
+      }
+    });
+
+    // Celebración al 100%
+    if (doneCount === total && !celebrationShown) {
       celebrationShown = true;
-      playCelebration();
       launchConfetti();
       setTimeout(() => celebration.classList.add('show'), 300);
     }
-    if (done < total) {
+    if (doneCount < total) {
       celebrationShown = false;
+    }
+  }
+
+  function scrollToNext(currentMeal) {
+    // Buscar la siguiente card no completada después de la actual
+    let next = currentMeal.nextElementSibling;
+    while (next) {
+      if (next.classList.contains('meal') && !next.classList.contains('done')) {
+        next.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+      next = next.nextElementSibling;
+    }
+    // Si no hay siguiente después, buscar desde el principio
+    for (const m of meals) {
+      if (!m.classList.contains('done') && m !== currentMeal) {
+        m.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
     }
   }
 
@@ -950,24 +575,21 @@
     confettiContainer.classList.add('active');
     const count = 120;
     for (let i = 0; i < count; i++) {
-      const piece = document.createElement('div');
-      piece.className = 'confetti-piece';
+      const p = document.createElement('div');
+      p.className = 'confetti-piece';
       const color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
-      const left = Math.random() * 100;
-      const duration = 2.5 + Math.random() * 2.5;
-      const delay = Math.random() * 1.5;
-      const width = 6 + Math.random() * 8;
-      const height = 8 + Math.random() * 10;
+      p.style.left = (Math.random() * 100) + 'vw';
+      p.style.background = color;
+      const w = 6 + Math.random() * 8;
+      const h = 8 + Math.random() * 10;
       const isCircle = Math.random() > 0.7;
-      piece.style.left = left + 'vw';
-      piece.style.background = color;
-      piece.style.width = width + 'px';
-      piece.style.height = isCircle ? width + 'px' : height + 'px';
-      piece.style.borderRadius = isCircle ? '50%' : '2px';
-      piece.style.animationDuration = duration + 's';
-      piece.style.animationDelay = delay + 's';
-      piece.style.transform = `rotate(${Math.random() * 360}deg)`;
-      confettiContainer.appendChild(piece);
+      p.style.width = w + 'px';
+      p.style.height = isCircle ? w + 'px' : h + 'px';
+      p.style.borderRadius = isCircle ? '50%' : '2px';
+      p.style.animationDuration = (2.5 + Math.random() * 2.5) + 's';
+      p.style.animationDelay = (Math.random() * 1.5) + 's';
+      p.style.transform = `rotate(${Math.random() * 360}deg)`;
+      confettiContainer.appendChild(p);
     }
     setTimeout(() => {
       confettiContainer.classList.remove('active');
@@ -975,30 +597,10 @@
     }, 6000);
   }
 
-  function markExerciseDone(ex, isDone) {
-    if (isDone) {
-      ex.classList.add('done');
-      const btn = ex.querySelector('.check-btn');
-      if (btn) btn.textContent = 'Hecho';
-    } else {
-      ex.classList.remove('done');
-      const btn = ex.querySelector('.check-btn');
-      if (btn) btn.textContent = 'Marcar como hecho';
-    }
-  }
-
   function saveState() {
     const state = {};
-    exercises.forEach(ex => {
-      const id = ex.dataset.id;
-      state[id] = {
-        done: ex.classList.contains('done'),
-        series: []
-      };
-      const seriesBtns = ex.querySelectorAll('.serie-btn');
-      seriesBtns.forEach(btn => {
-        state[id].series.push(btn.classList.contains('completed'));
-      });
+    meals.forEach(m => {
+      state[m.dataset.id] = m.classList.contains('done');
     });
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
   }
@@ -1008,68 +610,34 @@
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return;
       const state = JSON.parse(raw);
-      exercises.forEach(ex => {
-        const id = ex.dataset.id;
-        if (!state[id]) return;
-        if (state[id].done) markExerciseDone(ex, true);
-        const seriesBtns = ex.querySelectorAll('.serie-btn');
-        if (state[id].series && state[id].series.length) {
-          seriesBtns.forEach((btn, i) => {
-            if (state[id].series[i]) btn.classList.add('completed');
-          });
-        }
+      meals.forEach(m => {
+        if (state[m.dataset.id]) m.classList.add('done');
       });
-      // If everything was already done on load, don't pop the celebration again
-      const done = document.querySelectorAll('.exercise.done').length;
+      const done = document.querySelectorAll('.meal.done').length;
       if (done === total) celebrationShown = true;
     } catch(e) {}
   }
 
-  // Botones simples (ejercicios sin series tracker)
-  exercises.forEach(ex => {
-    const btn = ex.querySelector('.check-btn');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        playClick();
-        const isDone = !ex.classList.contains('done');
-        markExerciseDone(ex, isDone);
-        updateProgress();
-        saveState();
-      });
-    }
-
-    // Botones de serie
-    const tracker = ex.querySelector('.series-tracker');
-    if (tracker) {
-      const seriesBtns = tracker.querySelectorAll('.serie-btn');
-      const totalSeries = seriesBtns.length;
-      seriesBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          playClick();
-          btn.classList.toggle('completed');
-          const completed = tracker.querySelectorAll('.serie-btn.completed').length;
-          if (completed === totalSeries) {
-            ex.classList.add('done');
-          } else {
-            ex.classList.remove('done');
-          }
-          updateProgress();
-          saveState();
-        });
-      });
-    }
+  meals.forEach(m => {
+    const btn = m.querySelector('.check-btn');
+    btn.addEventListener('click', () => {
+      const wasAlreadyDone = m.classList.contains('done');
+      m.classList.toggle('done');
+      updateUI();
+      saveState();
+      // Solo scrollear al marcar como hecho (no al desmarcar)
+      if (!wasAlreadyDone) {
+        // Pequeño delay para que el usuario vea el check verde antes del scroll
+        setTimeout(() => scrollToNext(m), 350);
+      }
+    });
   });
 
   document.getElementById('resetBtn').addEventListener('click', () => {
-    exercises.forEach(ex => {
-      ex.classList.remove('done');
-      const btn = ex.querySelector('.check-btn');
-      if (btn) btn.textContent = 'Marcar como hecho';
-      ex.querySelectorAll('.serie-btn.completed').forEach(b => b.classList.remove('completed'));
-    });
+    meals.forEach(m => m.classList.remove('done'));
     celebrationShown = false;
     celebration.classList.remove('show');
-    updateProgress();
+    updateUI();
     saveState();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
@@ -1079,25 +647,7 @@
   });
 
   loadState();
-  updateProgress();
-
-  // ── WAKE LOCK (mantiene la pantalla encendida) ──────────────────────────
-  let wakeLock = null;
-
-  async function requestWakeLock() {
-    if (!('wakeLock' in navigator)) return;
-    try {
-      wakeLock = await navigator.wakeLock.request('screen');
-    } catch(e) {}
-  }
-
-  // Si la pestaña vuelve a primer plano (ej: el usuario sale y vuelve),
-  // la Wake Lock se libera automáticamente y hay que pedirla de nuevo.
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') requestWakeLock();
-  });
-
-  requestWakeLock();
+  updateUI();
 </script>
 </body>
 </html>
